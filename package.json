@@ -1,0 +1,43 @@
+{
+  "name": "@zakiaziz/secureframe-cli",
+  "version": "0.1.0",
+  "description": "A safe command line interface for Secureframe compliance data.",
+  "type": "module",
+  "bin": {
+    "secureframe": "./dist/cli.js"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "check": "tsc --noEmit",
+    "test": "tsc -p tsconfig.test.json && node --test dist-test/test/**/*.test.js",
+    "prepack": "bun run build",
+    "dev": "tsc -p tsconfig.json --watch"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "keywords": [
+    "secureframe",
+    "soc2",
+    "compliance",
+    "cli",
+    "api"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "typescript": "^5.8.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zakiaziz/secureframe-cli.git"
+  }
+}
