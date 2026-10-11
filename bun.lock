@@ -5,8 +5,8 @@
     "": {
       "name": "@zakiaziz/secureframe-cli",
       "devDependencies": {
-        "@types/node": "^24.0.0",
-        "typescript": "^5.8.0",
+        "@types/node": "^24",
+        "typescript": "^5.8",
       },
     },
   },
