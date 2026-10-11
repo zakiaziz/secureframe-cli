@@ -41,7 +41,7 @@ export async function main(argv = process.argv.slice(2)): Promise<void> {
   const options = getGlobalOptions(parsed);
 
   if (options.version) {
-    printText(version());
+    printText(`secureframe ${version()}`);
     return;
   }
   if (options.help || parsed.command.length === 0) {
