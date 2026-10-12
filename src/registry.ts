@@ -50,7 +50,7 @@ export const commands: ResourceCommand[] = [
     ],
     effects: { kind: "read", summary: "Sends GET /cloud_resources, one request per page." },
     output:
-      "Collection envelope. data is an array of cloud resources; meta holds next_cursor, has_more, and provider (total, and included when --include returns resources, deduplicated by type and id).",
+      "Collection envelope. data is an array of cloud resources; meta holds profile, next_cursor, has_more, and provider (total, and included when --include returns resources, deduplicated by type and id).",
     method: "GET",
     collectionKey: "data",
     pagination: { max: PAGE_MAX, default: PAGE_DEFAULT, ordering: "Order is set by Secureframe and is undocumented." },
@@ -64,7 +64,7 @@ export const commands: ResourceCommand[] = [
     examples: [
       "secureframe cloud-resources list",
       "secureframe cloud-resources list --filter 'vendor_name:AWS AND region:us-east-1' --all",
-      "secureframe cloud-resources list --include owner --include integration_connection --format human",
+      "secureframe cloud-resources list --include owner --include integration_connection --format json",
     ],
     request: listRequest,
   },
@@ -75,12 +75,14 @@ export const commands: ResourceCommand[] = [
     options: [INCLUDE_OPTION, RELATIONSHIPS_OPTION],
     effects: { kind: "read", summary: "Sends GET /cloud_resources/CLOUD_RESOURCE_ID." },
     output:
-      "Resource envelope. data is the Secureframe response body: the cloud resource is data.data, and related resources requested with --include are data.included. meta is empty.",
+      "Resource envelope. data is the cloud resource object. Related resources requested with --include are in meta.provider.included. meta has profile.",
     method: "GET",
+    resourceKey: "data",
+    providerMeta: ["included"],
     emptyIsNotFound: true,
     examples: [
       "secureframe cloud-resources get 6f1c2d3e-8a4b-4c5d-9e0f-1a2b3c4d5e6f",
-      "secureframe cloud-resources get 6f1c2d3e-8a4b-4c5d-9e0f-1a2b3c4d5e6f --include owner --format human",
+      "secureframe cloud-resources get 6f1c2d3e-8a4b-4c5d-9e0f-1a2b3c4d5e6f --include owner --format json",
     ],
     request: (context) => ({
       path: `/cloud_resources/${encodeURIComponent(context.args[0] ?? "")}`,
