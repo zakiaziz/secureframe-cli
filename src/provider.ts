@@ -98,10 +98,6 @@ function pageNumbers(): Pagination {
       const providerMeta = { ...(total === undefined ? {} : { total }), ...(included.length > 0 ? { included } : {}) };
       return { nextCursor: hasMore ? String(number + 1) : null, ...(Object.keys(providerMeta).length > 0 ? { provider: providerMeta } : {}) };
     },
-    mergeProvider(previous, next) {
-      const merged = uniqueIncluded([previous.included, next.included].flatMap((items) => (Array.isArray(items) ? items : [])));
-      return { ...next, ...(merged.length > 0 ? { included: merged } : {}) };
-    },
   };
 }
 
